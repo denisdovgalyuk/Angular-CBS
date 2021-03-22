@@ -5,6 +5,7 @@
     <thead>
     <tr>
       <th *ngFor="let title of titles">{{title}}</th>
+      <th>Delete Row</th>
     </tr>
     </thead>
     <tbody>
@@ -12,6 +13,9 @@
       <td>{{row.id}}</td>
       <td>{{row.name}}</td>
       <td>{{row.price}}</td>
+      <td>
+        <button type="button" class="btn btn-light" (click)="deleteRow(row.id)">Delete</button>
+      </td>
     </tr>
     </tbody>
   </table>

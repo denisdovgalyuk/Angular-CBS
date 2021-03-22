@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'components';
+
+  log(id) {
+    console.log('Event from Child Component =>', id);
+  }
 }

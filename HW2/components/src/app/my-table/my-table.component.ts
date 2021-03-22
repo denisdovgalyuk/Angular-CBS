@@ -1,13 +1,13 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-my-table',
   templateUrl: './my-table.component.html',
   styleUrls: ['./my-table.component.sass']
 })
-export class MyTableComponent {
+export class MyTableComponent implements OnChanges {
 
-  Products: Array<object> = [
+  Products = [
     { id: 1, name : "product 1", price : 100 },
     { id: 2, name : "product 2", price : 200 },
     { id: 3, name : "product 3", price : 300 },
@@ -20,12 +20,22 @@ export class MyTableComponent {
     { id: 10, name : "product 10", price : 1000 }
   ];
 
-  @Input('rows') rows: string;
+  titles: Array<string> = Object.keys(this.Products[0]);
 
-  constructor() {
+  @Input() rows: number;
+  @Output() deleted = new EventEmitter<number>();
 
+  constructor() {}
+
+  ngOnChanges() {
+    if (typeof this.rows !== 'undefined' && this.rows < this.Products.length) {
+      this.Products.length = this.rows;
+    }
   }
 
-  titles: Array<string> = Object.keys(this.Products[0]);
+  deleteRow(id): void {
+    this.Products = this.Products.filter(row => id !== row.id);
+    this.deleted.emit(id);
+  }
 
 }
