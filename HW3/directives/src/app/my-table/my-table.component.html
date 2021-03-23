@@ -8,16 +8,29 @@
       <th>Delete Row</th>
     </tr>
     </thead>
-    <tbody>'
-    <tr *ngFor="let row of Products" [ngStyle]="row.price > 500 ? {'color': 'red'} : {'color': 'inherit'}">
+    <tbody>
+    <tr *ngFor="let row of productCategory" [ngStyle]="row.price > 500 ? {'color': 'red'} : {'color': 'inherit'}">
       <td>{{row.id}}</td>
       <td>{{row.name}}</td>
       <td>{{row.price}}</td>
+      <td>{{row.category}}</td>
       <td>
         <button type="button" class="btn btn-light" (click)="deleteRow(row.id)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
+
+  <div class="row">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Filter by category</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem *ngFor="let option of category" (click)="filterRow(option)">{{option}}</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
