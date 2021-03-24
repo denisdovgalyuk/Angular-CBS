@@ -20,7 +20,7 @@ export class MyTableComponent implements OnChanges {
     { id: 10, name : "product 10", price : 1000, category: 'Category 3' }
   ];
 
-  productCategory = this.Products;
+  productCategory = this.Products.slice(0);
 
   category: Array<string> = ['Category 1', 'Category 2', 'Category 3'];
 
@@ -32,9 +32,23 @@ export class MyTableComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges() {
-    if (typeof this.rows !== 'undefined' && this.rows < this.Products.length) {
-      this.Products.length = this.rows;
+    if (typeof this.rows !== 'undefined' && this.rows < this.productCategory.length) {
+      this.productCategory.length = this.rows;
     }
+  }
+
+  addRow(objForm) {
+    let maxID = 1;
+    const newObjectForm = Object.assign({}, objForm);
+    newObjectForm.category = newObjectForm.category !== '' ? `Category ${newObjectForm.category}` : 'No category';
+
+    if (this.productCategory.length !== 0) {
+      maxID = this.productCategory.reduce((acc, curr) => acc.id > curr.id ? acc : curr).id + 1;
+    }
+    const newProduct = Object.assign({id: maxID}, newObjectForm);
+
+    this.productCategory.push(newProduct);
+    this.Products = this.productCategory;
   }
 
   deleteRow(id): void {
@@ -45,10 +59,10 @@ export class MyTableComponent implements OnChanges {
 
   filterRow(optionName): void {
     this.productCategory = this.Products;
-    this.productCategory = this.productCategory.filter(row => {
-      return row.category === optionName;
-    })
 
+    if (optionName !== 'all') {
+      this.productCategory = this.productCategory.filter(row => row.category === optionName);
+    }
   }
 
 }
