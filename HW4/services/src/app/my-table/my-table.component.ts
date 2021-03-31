@@ -31,12 +31,12 @@ export class MyTableComponent implements OnChanges {
     newObjectForm.category = newObjectForm.category !== '' ? `Category ${newObjectForm.category}` : 'No category';
 
     if (this.productCategory.length !== 0) {
-      maxID = this.productCategory.reduce((acc, curr) => acc.id > curr.id ? acc : curr).id + 1;
+      maxID = this.serviceData.data.getData().reduce((acc, curr) => acc.id > curr.id ? acc : curr).id + 1;
     }
     const newProduct = Object.assign({id: maxID}, newObjectForm);
 
-    this.productCategory.push(newProduct);
-    this.serviceData.data.setData(this.productCategory);
+    this.serviceData.data.getData().push(newProduct);
+    
   }
 
   deleteRow(id): void {
