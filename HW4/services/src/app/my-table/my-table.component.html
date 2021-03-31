@@ -1,0 +1,41 @@
+<div class="table-wrapper">
+
+  <div class="filter">
+    <div class="row">
+      <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>Filter by category</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem (click)="filterRow('all')">All category</button>
+            <button ngbDropdownItem *ngFor="let option of category" (click)="filterRow(option)">{{option}}</button>
+            <button ngbDropdownItem (click)="filterRow('No category')">No category</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped table-bordered table-hover table-dark">
+    <thead>
+    <tr>
+      <th *ngFor="let title of titles">{{title}}</th>
+      <th>Delete Row</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of productCategory" [ngStyle]="row.price > 500 ? {'color': 'red'} : {'color': 'inherit'}">
+      <td>{{row.id}}</td>
+      <td>{{row.name}}</td>
+      <td>{{row.price}}</td>
+      <td>{{row.category}}</td>
+      <td>
+        <button type="button" class="btn btn-light" (click)="deleteRow(row.id)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-add-product (addProduct)="addRow($event)"></app-add-product>
+
+
