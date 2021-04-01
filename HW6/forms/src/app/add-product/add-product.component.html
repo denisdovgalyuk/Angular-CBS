@@ -1,0 +1,57 @@
+<div class="form-wrapper">
+  <form #form="ngForm" (ngSubmit)="add()">
+    <div class="form-group">
+      <label>Name</label>
+      <input
+        [(ngModel)]="newProduct.name"
+        name="name"
+        type="text"
+        class="form-control"
+        aria-describedby="emailHelp"
+        placeholder="Name"
+        minlength="4"
+        #name="ngModel"
+        required
+      >
+
+      <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert alert-danger">
+        <span [hidden]="!name.errors.required">Поле имя обезательное для заполнения</span>
+        <span [hidden]="!name.errors.minlength">
+          Поле имя должно содержать не меньше 4 символов! <br>
+          Текущее значения символов - {{name.errors.minlength.actualLength}}
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Price</label>
+      <input [(ngModel)]="newProduct.price"
+             name="price"
+             type="number"
+             class="form-control"
+             placeholder="Price"
+             #price="ngModel"
+             required
+      >
+      <div [hidden]="price.valid || price.pristine" class="alert alert alert-danger">
+        Поле имя обезательное для заполнения
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <input
+        [(ngModel)]="newProduct.category"
+        name="category"
+        type="number"
+        class="form-control"
+        placeholder="1 or 2 or 3"
+        #category="ngModel"
+        required
+      >
+      <div *ngIf="category.errors && (category.dirty || category.touched)" class="alert alert alert-danger">
+        <span [hidden]="!category.errors.required">Поле имя обезательное для заполнения</span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-dark" [disabled]="name.invalid || price.invalid || category.invalid">Add Product</button>
+  </form>
+</div>
+
