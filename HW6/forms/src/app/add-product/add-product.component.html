@@ -33,7 +33,7 @@
              required
       >
       <div [hidden]="price.valid || price.pristine" class="alert alert alert-danger">
-        Поле имя обезательное для заполнения
+        Поле цена обезательное для заполнения
       </div>
     </div>
     <div class="form-group">
@@ -48,7 +48,7 @@
         required
       >
       <div *ngIf="category.errors && (category.dirty || category.touched)" class="alert alert alert-danger">
-        <span [hidden]="!category.errors.required">Поле имя обезательное для заполнения</span>
+        <span [hidden]="!category.errors.required">Поле категория обезательное для заполнения</span>
       </div>
     </div>
     <button type="submit" class="btn btn-dark" [disabled]="name.invalid || price.invalid || category.invalid">Add Product</button>

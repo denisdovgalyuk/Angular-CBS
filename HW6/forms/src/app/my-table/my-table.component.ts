@@ -1,25 +1,34 @@
-import {Component, Input, OnChanges, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {ProductsService} from "../services/products.service";
+
+interface IProducts {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+}
 
 @Component({
   selector: 'app-my-table',
   templateUrl: './my-table.component.html',
   styleUrls: ['./my-table.component.sass']
 })
-export class MyTableComponent implements OnChanges {
-
-  constructor(private serviceData: ProductsService) {}
-
-  productCategory = this.serviceData.data.getData().slice(0);
-
-  category: Array<string> = ['Category 1', 'Category 2', 'Category 3'];
-
-  titles: Array<string> = Object.keys(this.serviceData.data.getData()[0]);
+export class MyTableComponent implements OnInit {
 
   @Input() rows: number;
   @Output() deleted = new EventEmitter<number>();
+  productCategory: IProducts[];
+  titles: Array<string>;
+  category: Array<string> = ['Category 1', 'Category 2', 'Category 3'];
 
-  ngOnChanges() {
+
+  constructor(private serviceData: ProductsService) {
+  }
+
+  ngOnInit() {
+    this.productCategory = this.serviceData.data.getData().slice(0);
+    this.titles = Object.keys(this.serviceData.data.getData()[0]);
+
     if (typeof this.rows !== 'undefined' && this.rows < this.productCategory.length) {
       this.productCategory.length = this.rows;
     }
@@ -28,7 +37,7 @@ export class MyTableComponent implements OnChanges {
   addRow(objForm) {
     let maxID = 1;
     const newObjectForm = Object.assign({}, objForm);
-    newObjectForm.category = newObjectForm.category !== '' ? `Category ${newObjectForm.category}` : 'No category';
+    newObjectForm.category = !(+newObjectForm.category < 0 || +newObjectForm.category > 3) ? `Category ${newObjectForm.category}` : 'No category';
 
     if (this.productCategory.length !== 0) {
       maxID = this.serviceData.data.getData().reduce((acc, curr) => acc.id > curr.id ? acc : curr).id + 1;

@@ -1,0 +1,52 @@
+<div class="form-wrapper">
+  <form (ngSubmit)="add()" [formGroup]="form">
+    <div class="form-group">
+      <label>Name</label>
+      <input
+        formControlName="name"
+        name="name"
+        type="text"
+        class="form-control"
+        aria-describedby="emailHelp"
+        placeholder="Name"
+        minlength="4"
+      >
+      <div *ngIf="form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)" class="alert alert alert-danger">
+        <span [hidden]="!form.get('name').errors.required">Поле имя обезательное для заполнения</span>
+        <span [hidden]="!form.get('name').errors.minlength">
+          Поле имя должно содержать не меньше 4 символов! <br>
+          Текущее значения символов - {{form.get('name').errors.minlength.actualLength}}
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Price</label>
+      <input
+        formControlName="price"
+        name="price"
+        type="number"
+        class="form-control"
+        placeholder="Price"
+      >
+      <div [hidden]="form.get('price').valid || form.get('price').pristine" class="alert alert alert-danger">
+        Поле цена обезательное для заполнения
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <input
+        formControlName="category"
+        name="category"
+        type="number"
+        class="form-control"
+        placeholder="1 or 2 or 3"
+      >
+      <div *ngIf="form.get('category').invalid && (form.get('category').dirty || form.get('category').touched)" class="alert alert alert-danger">
+        <span [hidden]="!form.get('category').errors.required">Поле категория обезательное для заполнения</span>
+        <span [hidden]="!form.get('category').errors.pattern">Поле категория должно быть 1, 2 или 3</span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-dark" [disabled]="form.invalid">Add Product</button>
+  </form>
+</div>
+

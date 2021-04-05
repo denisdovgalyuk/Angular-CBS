@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter} from '@angular/core';
+import {Component, Output, EventEmitter, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-add-product',
@@ -7,17 +7,15 @@ import {Component, Output, EventEmitter} from '@angular/core';
 })
 export class AddProductComponent {
 
-  constructor() { }
-
+  @Output() addProduct = new EventEmitter<any>();
+  @ViewChild('form') addProductFormGroup;
   newProduct = {name: '', price: '', category: ''};
 
-  @Output() addProduct = new EventEmitter<any>();
+  constructor() { }
 
   add() {
-    if (+this.newProduct.category > 3 || +this.newProduct < 0) {
-      this.newProduct.category = '';
-    }
     this.addProduct.emit(this.newProduct);
+    this.addProductFormGroup.form.reset();
   }
 
 }
