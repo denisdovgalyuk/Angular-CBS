@@ -1,0 +1,27 @@
+<form #myForm="ngForm" (ngSubmit)="addComment(myForm)" [formGroup]="form">
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Name</label>
+    <input type="name" class="form-control" id="exampleFormControlInput1" placeholder="Enter your name" formControlName="userName">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Comment</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter your comment" formControlName="commentText"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+</form>
+
+
+<div class="comments-wrap">
+  <ngb-toast *ngFor="let comment of comments" [autohide]="false" (hidden)="show=false">
+    <ng-template ngbToastHeader>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+        <path
+          d="M16.896 10l-4.896-8-4.896 8-7.104-4 3 11v5h18v-5l3-11-7.104 4zm-11.896 10v-2h14v2h-14zm14.2-4h-14.4l-1.612-5.909 4.615 2.598 4.197-6.857 4.197 6.857 4.615-2.598-1.612 5.909z" />
+      </svg>
+      <strong class="mx-1">{{comment.userName}}</strong>{{comment.data | date: 'dd.MM.YY, HH:mm:ss'}}
+    </ng-template>
+    {{comment.commentText}}
+  </ngb-toast>
+
+</div>
+
