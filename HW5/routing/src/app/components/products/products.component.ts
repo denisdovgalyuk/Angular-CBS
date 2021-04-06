@@ -21,6 +21,10 @@ export class ProductsComponent implements OnInit {
   }
 
   redirectToProductDetails(id) {
-    this.router.navigate(['/details', id]);
+    // TASK 2
+    // this.router.navigate(['/details', id]);
+
+    // TASK 3
+    this.router.navigate(['/products', 'details', id]);
   }
 }
