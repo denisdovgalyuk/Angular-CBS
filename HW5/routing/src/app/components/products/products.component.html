@@ -1,0 +1,7 @@
+<div class="products-wrapper">
+  <div class="card" *ngFor="let product of products" (click)="redirectToProductDetails(product.id)">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+    </div>
+  </div>
+</div>
